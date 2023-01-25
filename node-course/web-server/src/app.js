@@ -22,6 +22,8 @@ hbs.registerPartials(partialsPath);
 // Setup static directory to server
 app.use(express.static(publicFolderPath));
 
+//req = obj containing info about request
+//res = obj containing methods to use in response
 app.get("", (req, res) => {
   //use render method to render hbs file from views --> no need for '.hbs" at end
   //second arg = obj w/ all values want view to access
@@ -46,30 +48,21 @@ app.get("/help", (req, res) => {
   });
 });
 
-//req = obj containing info about request
-//res = obj containing methods to use in response
-// app.get("", (req, res) => {
-//   res.send("<h1>Weather</h1>");
-// });
+app.get("/help/*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    errorMessage: "Help article not found",
+    name: "Jeff",
+  });
+});
 
-// app.get("/help", (req, res) => {
-//   res.send({
-//     name: "Jeff",
-//     age: 26,
-//   });
-// });
-
-// app.get("/about", (req, res) => {
-//   res.send("<h1>About page<h1>");
-// });
-
-// app.get("/weather", (req, res) => {
-//   res.send({
-//     forecast: "It is sunny",
-//     location: "Encinitas",
-//   });
-// });
-
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    errorMessage: "Page not found",
+    name: "Jeff",
+  });
+});
 //start up server + specify port
 app.listen(3000, () => {
   console.log("Server is up on port 3000");
