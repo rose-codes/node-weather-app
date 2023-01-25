@@ -9,13 +9,15 @@ const app = express();
 
 // Define paths for Express config
 const publicFolderPath = path.join(__dirname, "../public");
-const viewsPath = path.join(__dirname, "../templates");
+const viewsPath = path.join(__dirname, "../templates/views");
+const partialsPath = path.join(__dirname, "../templates/partials");
 
 // Setup handlebars engine and views location
 // sets up handlebars library --> creates views (templates for dynamic pages) ==> stores in views folder
 app.set("view engine", "hbs");
 // sets views in templates as views needed in handlebars w/o specifically naming the folder "views"
 app.set("views", viewsPath);
+hbs.registerPartials(partialsPath);
 
 // Setup static directory to server
 app.use(express.static(publicFolderPath));
@@ -38,7 +40,9 @@ app.get("/about", (req, res) => {
 
 app.get("/help", (req, res) => {
   res.render("help", {
+    helpText: "This is some help text",
     title: "Help Page",
+    name: "Jeff",
   });
 });
 
