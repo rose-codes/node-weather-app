@@ -1,16 +1,23 @@
 const path = require("path");
 const express = require("express");
+const hbs = require("hbs");
 
 // console.log(__dirname);
 // console.log(path.join(__dirname, "../public"));
 
 const app = express();
 
-publicFolderPath = path.join(__dirname, "../public");
+// Define paths for Express config
+const publicFolderPath = path.join(__dirname, "../public");
+const viewsPath = path.join(__dirname, "../templates");
 
-//sets up handlebars library --> creates views (templates for dynamic pages) ==> stores in views folder
+// Setup handlebars engine and views location
+// sets up handlebars library --> creates views (templates for dynamic pages) ==> stores in views folder
 app.set("view engine", "hbs");
+// sets views in templates as views needed in handlebars w/o specifically naming the folder "views"
+app.set("views", viewsPath);
 
+// Setup static directory to server
 app.use(express.static(publicFolderPath));
 
 app.get("", (req, res) => {
