@@ -1,9 +1,12 @@
 const request = require("request");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const weather = (lat, lon, callback) => {
   const latitude = encodeURIComponent(lat);
   const longitude = encodeURIComponent(lon);
-  const url = `https://api.openweathermap.org/data/2.5/weather?appid=f4754b10f90602859378eeea98f7fce9&lat=${latitude}&lon=${longitude}&units=imperial`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?appid=${process.env.WEATHER_KEY}&lat=${latitude}&lon=${longitude}&units=imperial`;
 
   request({ url: url, json: true }, (err, { body }) => {
     if (err) {

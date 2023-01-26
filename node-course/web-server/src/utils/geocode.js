@@ -1,7 +1,10 @@
 const request = require("request");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const geocode = (location, cb) => {
-  const url = `https://us1.locationiq.com/v1/search.php/?key=pk.280d8cf8f51da722b0d68da9a432005d&q=${location}&format=json`;
+  const url = `https://us1.locationiq.com/v1/search.php/?key=${process.env.GEOCODE_KEY}&q=${location}&format=json`;
   request({ url: url, json: true }, (err, { body }) => {
     if (err) {
       cb("Unable to connect to network", undefined);
