@@ -15,9 +15,33 @@ const client = new MongoClient(connectionURL, { useNewUrlParser: true });
 client
   .db(databaseName)
   .collection("tasks")
-  .updateMany({ completed: false }, { $set: { completed: true } })
+  .deleteOne({ description: "fold laundry" })
   .then((result) => console.log(result))
   .catch((err) => console.log(err));
+
+// // Delete many
+// client
+//   .db(databaseName)
+//   .collection("users")
+//   .deleteMany({ age: 25 })
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
+
+// // Delete One
+// client
+//   .db(databaseName)
+//   .collection("users")
+//   .deleteOne({ _id: ObjectId("63d1f9528d1552d666ef881f") })
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
+
+// // Update Multiple
+// client
+//   .db(databaseName)
+//   .collection("tasks")
+//   .updateMany({ completed: false }, { $set: { completed: true } })
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
 
 // // Update One
 // client
