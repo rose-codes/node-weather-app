@@ -23,6 +23,32 @@ app.post("/users", (req, res) => {
     });
 });
 
+// Read Multiple Users
+app.get("/users", (req, res) => {
+  User.find({})
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((err) => {
+      res.status(500).send();
+    });
+});
+
+// Read One User by Id
+app.get("/users/:id", (req, res) => {
+  const _id = req.params.id;
+  User.findById(_id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send();
+      }
+      res.send(user);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 // Create Task
 app.post("/tasks", (req, res) => {
   const task = new Task(req.body);
@@ -33,6 +59,25 @@ app.post("/tasks", (req, res) => {
     })
     .catch((err) => {
       res.status(400).send(err);
+    });
+});
+
+// Read All Tasks
+app.get("/tasks", (req, res) => {
+  Task.find({})
+    .then((tasks) => res.send(tasks))
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+// Read One Task By Id
+app.get("/tasks/:id", (req, res) => {
+  const _id = req.params.id;
+  Task.findById(_id)
+    .then((task) => res.send(task))
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 
