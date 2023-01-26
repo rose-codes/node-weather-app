@@ -11,20 +11,38 @@ const connectionURL = process.env.CONNECTION_URL;
 const databaseName = process.env.DATABASE_NAME;
 
 const client = new MongoClient(connectionURL, { useNewUrlParser: true });
-client
-  .db(databaseName)
-  .collection("tasks")
-  .findOne({ _id: new ObjectId("63d2027883a25c4e80f23aeb") })
-  .then((result) => console.log(result))
-  .catch((err) => console.log(err));
 
 client
   .db(databaseName)
   .collection("tasks")
-  .find({ completed: false })
-  .toArray()
+  .updateMany({ completed: false }, { $set: { completed: true } })
   .then((result) => console.log(result))
   .catch((err) => console.log(err));
+
+// // Update One
+// client
+//   .db(databaseName)
+//   .collection("users")
+//   .updateOne(
+//     { _id: ObjectId("63d1fc49d87190d2a796086e") },
+//     { /*$set: { name: "Andrew" }*/ $inc: { age: 1 } }
+//   )
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
+// client
+//   .db(databaseName)
+//   .collection("tasks")
+//   .findOne({ _id: new ObjectId("63d2027883a25c4e80f23aeb") })
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
+
+// client
+//   .db(databaseName)
+//   .collection("tasks")
+//   .find({ completed: false })
+//   .toArray()
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
 // client
 //   .db(databaseName)
 //   .collection("users")
